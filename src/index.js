@@ -29,7 +29,6 @@ import TerrainPatch from "./classes/terrain-patch";
 import Heightmap from "./classes/heightmap";
 import Bird from "./classes/bird";
 import Random from "./classes/random";
-import $ from "jquery";
 
 (function() {
   if ("performance" in window == false) {
@@ -523,7 +522,7 @@ import $ from "jquery";
    * @param {Function} callback the callback to execute when meshes are loaded.
    */
   let loadMeshes = function(callback) {
-    loadingMessage.html("geometry");
+    loadingMessage.innerText = "geometry";
 
     let numFiles = meshFiles.length;
     if (numFiles === 0) {
@@ -545,7 +544,7 @@ import $ from "jquery";
    * Load the textures required to play the application.
    */
   let loadTextures = function(callback) {
-    loadingMessage.html("images");
+    loadingMessage.innerText = "images";
 
     let numFiles = imageFiles.length;
     if (numFiles === 0) {
@@ -888,7 +887,7 @@ import $ from "jquery";
    * Initialise the core application.
    */
   let init = function() {
-    loadingMessage.html("world");
+    loadingMessage.innerText = "world";
 
     window.flight = {};
     clock = new THREE.Clock(true);
@@ -970,7 +969,7 @@ import $ from "jquery";
 
     // Silly hack to prevent the perf hiccup ruining the fade effect
     setTimeout(() => {
-      $("#loader").fadeOut("slow");
+      document.querySelector("#loader").hidden = true;
     }, 100);
   };
 
@@ -1059,15 +1058,14 @@ import $ from "jquery";
     });
   };
 
-  $(document).ready(function() {
-    loadingMessage = $("#loading-message");
+  document.addEventListener("DOMContentLoaded", function() {
+    loadingMessage = document.querySelector("#loading-message");
 
     if (!Detector.webgl || !Detector.canvas) {
-      $(".label").html(
-        "My apologies, your device doesn't support WebGL, which is what this thing relies on! Try updating it, or try another one.",
-      );
+      document.querySelector(".label").innerText =
+        "My apologies, your device doesn't support WebGL, which is what this thing relies on! Try updating it, or try another one.";
     } else {
-      loadingMessage.html("code");
+      loadingMessage.innerText = "code";
     }
 
     loadTextures(() => {

@@ -59,6 +59,14 @@ canvas {
     height: 100%;
 }
 
+#loader[hidden] {
+    display: block;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity .6s linear, visibility 0s linear .6s;
+}
+
 #loader> .label {
     position: absolute;
     top: 50%;
